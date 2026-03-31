@@ -92,7 +92,7 @@
       </div>
 
     </div>
-
+ 
   </header>
 
   <main class="main">
@@ -1437,9 +1437,33 @@ Complemented by trained operators.
 
     <!-- RIGHT COLUMN: CONTACT FORM -->
     <div class="col-lg-7">
-      <div class="google-form-wrapper">
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfoB7t6HToc2qtQ2GfN8_nPoOARWttRqrg1s7FRxcqkcwcP5Q/viewform?embedded=true" width="640" height="956" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-</div>
+     <form id="contactForm" class="php-email-form">
+
+  <div class="row gy-4">
+
+    <div class="col-md-6">
+      <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+    </div>
+
+    <div class="col-md-6">
+      <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+    </div>
+
+    <div class="col-md-12">
+      <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+    </div>
+
+    <div class="col-md-12">
+      <textarea name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
+    </div>
+
+    <div class="col-md-12 text-center">
+      <button type="submit">Send Message</button>
+    </div>
+
+  </div>
+
+</form>
 
     </div>
 
@@ -1578,6 +1602,32 @@ Complemented by trained operators.
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const formData = {
+    name: this.name.value,
+    email: this.email.value,
+    subject: this.subject.value,
+    message: this.message.value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbwx71IB1K5CYaEdsnwsOiM_A0QMdekuGFwLO1hsBy-mymXKVsjpmkOA0t6ToeLmfQhe/exec", {
+    method: "POST",
+    body: JSON.stringify(formData)
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Message Sent Successfully!");
+    document.getElementById("contactForm").reset();
+  })
+  .catch(err => {
+    alert("Error sending message");
+  });
+});
+</script>
 
 </body>
 
